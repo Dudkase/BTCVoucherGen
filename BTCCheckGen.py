@@ -1,31 +1,24 @@
-import random
+from telethon import TelegramClient, events, sync
+from random import choice
+import time
 
-print(' ')
-print('➖➖➖➖➖➖➖[ BTCCheckGen 1.0 ]➖➖➖➖➖➖➖')
-print(' ')
-print('Генератор чеков для @BTC_CHANGE_BOT')
-print('Скрипт написан для канала ТЕНЕВОЙ БИЗНЕС')
-print('Автор: t.me/resilents | Наши проекты: t.me/shadowbiznes')
-print(' ')
-print('➖➖➖➖➖➖➖[ BTCCheckGen 1.0 ]➖➖➖➖➖➖➖')
-print(' ')
+api_id = 0000000
+api_hash = 'Тут ваш api hash'
+
+# These example values won't work. You must get your own api_id and
+# api_hash from https://my.telegram.org, under API Development.
+
+client = TelegramClient('session_name', api_id, api_hash)
+client.start()
+
 chars = 'abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
-number = input('◾ Укажите желаемое количество ссылок для генерации:'+ "\n")
-print(' ')
-length = input('◾ Укажите длинну чека (советуем ввести 32):'+ "\n")
-print(' ')
-number = int(number)
-length = int(length)
-print(' ')
-print('☑ Работа скрипта успешно завершена: ', number, ' чеков сгенерировано.')
-print('⚠️ ВНИМАНИЕ: Скрипт генерирует рандомные чеки, проверять на валидность придется вручную.')
-print(' ')
+
+number = 300
+length = 32
+
 for n in range(number):
-    password =''
+    password = ''
     for i in range(length):
-        password += random.choice(chars)
-    print('https://t.me/BTC_CHANGE_BOT?start=b_',password)
-print(' ')
-print('➕ Все новости и обновления скрипта в нашем телеграм канале, подпишись и не пропускай новые плюшки.')
-print()
-toexit = input("[BTCCheckGen] ⚠️ Нажмите любую клавишу для завершения.")
+        password += choice(chars)
+    client.send_message('BTC_CHANGE_BOT', f'/start c_{password}')
+    time.sleep(2)
